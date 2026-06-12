@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "gym.proto";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.microservices";
+option java_outer_classname = "RecreationProto";
+
+service RecreationService {
+  rpc GetResources     (EmptyRequest)       returns (ResourceList);
+  rpc ReserveResource  (ReservationRequest) returns (ReservationResponse);
+}
+
+message ReservationRequest {
+  string student_id   = 1;
+  string resource_id  = 2;
+}
+
+message ReservationResponse {
+  bool   success  = 1;
+  string message  = 2;
+}
+
+message ResourceInfo {
+  string resource_id   = 1;
+  string name          = 2;
+  bool   available     = 3;
+}
+
+message ResourceList {
+  repeated ResourceInfo resources = 1;
+}
